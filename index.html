@@ -1,0 +1,381 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Raja Rehan Afzal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+</head><body>
+<style>
+/* Layout: single-page app with hash routes (home, portfolio, services, about, awards, resume, contact). Dark cinematic look, orange-to-blue glow, gradient-framed hero panel. Deliberately single-theme (dark). */
+:root{
+  color-scheme:dark;
+  --bg:#0a0a0c; --panel:#131318; --panel2:#18181f; --line:#26262f; --fg:#f2f2f5; --muted:#9a9eab;
+  --orange:#ff6a2b; --blue:#4d8dff; --grad:linear-gradient(90deg,#ff6a2b,#4d8dff);
+  --display:'Sora','Segoe UI',system-ui,sans-serif; --body:'DM Sans',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;min-height:100vh;
+  background-image:radial-gradient(900px 600px at 5% 0%,rgba(255,106,43,.22),transparent 60%),radial-gradient(900px 700px at 100% 100%,rgba(77,141,255,.18),transparent 60%);
+  background-attachment:fixed;background-repeat:no-repeat;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin-inline:auto}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(30px,5vw,52px);font-weight:800}
+.g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--orange)}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:var(--muted)}
+.lead{color:var(--muted);max-width:56ch}
+
+/* nav */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;
+  background:linear-gradient(var(--bg),rgba(10,10,12,.7));backdrop-filter:blur(8px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.brand{font-family:var(--display);font-weight:800;letter-spacing:.04em;font-size:16px;white-space:nowrap}
+.brand i{color:var(--orange);font-style:normal}
+nav.links{display:flex;gap:26px}
+nav.links a{font-size:14px;color:var(--muted);padding:4px 0;border-bottom:2px solid transparent;font-weight:500}
+nav.links a:hover{color:var(--fg)}
+nav.links a.on{color:var(--fg);border-bottom-color:var(--orange)}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);padding:9px 20px;border-radius:99px;font-size:14px;font-weight:700;cursor:pointer;color:var(--fg);font-family:var(--body)}
+.pill:hover{border-color:var(--orange)}
+.pill.fill{background:var(--grad);border-color:transparent;color:#140a05}
+.pill.fill:hover{filter:brightness(1.1)}
+#menu{display:none}
+@media (max-width:900px){
+  nav.links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 16px}
+  nav.links.open{display:flex}
+  nav.links a{padding:12px 0;border-bottom:1px solid var(--line)}
+  #menu{display:inline-flex}
+  .talk{display:none}
+}
+.hdr-r{display:flex;gap:10px;align-items:center}
+
+/* views */
+.view{display:none;padding-block:36px 72px}
+.view.on{display:block;animation:in .45s ease both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sec-top{margin-bottom:36px;display:grid;gap:14px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:28px 24px}
+.hero h1{font-size:clamp(40px,7vw,80px);font-weight:800;margin:20px 0}
+.hero .yrs{font-family:var(--mono);color:var(--blue);font-size:15px;font-weight:500;margin-bottom:12px}
+.hero .cta{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:32px}
+.hero .cta .pill{padding:15px 28px}
+.link2{font-size:15px;font-weight:700;color:var(--muted)}.link2:hover{color:var(--fg)}
+.frame{position:relative;aspect-ratio:4/5;max-width:440px;width:100%;margin-inline:auto;border-radius:22px;padding:2px;background:linear-gradient(160deg,var(--orange),#2a2a35 45%,var(--blue));box-shadow:0 30px 90px -30px rgba(255,106,43,.4)}
+.frame>div{height:100%;border-radius:20px;background:#0d0d11;display:grid;place-items:center;text-align:center;padding:24px;position:relative;overflow:hidden}
+.frame>div::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,106,43,.15),transparent 55%),radial-gradient(circle at 80% 90%,rgba(77,141,255,.18),transparent 55%)}
+.frame .corner{position:absolute;width:14px;height:14px;border:1px solid var(--muted);opacity:.7}
+.frame .tl{top:16px;left:16px;border-right:0;border-bottom:0}.frame .tr{top:16px;right:16px;border-left:0;border-bottom:0}
+.frame .bl{bottom:16px;left:16px;border-right:0;border-top:0}.frame .br{bottom:16px;right:16px;border-left:0;border-top:0}
+.frame p{position:relative;margin:0;color:var(--muted);font-size:14px;max-width:24ch}
+.frame .rec{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:1;display:flex;gap:8px;align-items:center}
+.frame .rec::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:36px}}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:56px}
+.stats div{background:var(--panel);padding:22px}
+.stats b{display:block;font-family:var(--display);font-size:34px}
+.stats span{color:var(--muted);font-size:14px}
+
+.row-h{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin:72px 0 24px}
+.row-h h2{font-size:clamp(26px,4vw,38px)}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;text-align:left;color:inherit;font:inherit;padding:0;display:block;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--orange);transform:translateY(-3px)}
+.thumb{aspect-ratio:16/9;position:relative;display:flex;align-items:flex-end;justify-content:space-between;padding:10px 12px;font-family:var(--mono);font-size:12px}
+.thumb::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 22px,rgba(255,255,255,.06) 22px 23px)}
+.thumb span{position:relative;background:rgba(0,0,0,.6);padding:2px 7px;border-radius:4px}
+.thumb .pl{position:absolute;inset:0;display:grid;place-items:center}
+.thumb .pl::after{content:"";border-left:18px solid rgba(255,255,255,.9);border-block:11px solid transparent;margin-left:5px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+.t1{background:linear-gradient(130deg,#7a2d0b,#ff6a2b 60%,#4d8dff)}.t2{background:linear-gradient(130deg,#162a5a,#4d8dff)}
+.t3{background:linear-gradient(130deg,#3a1f6e,#b06bff 70%,#ff6a2b)}.t4{background:linear-gradient(130deg,#0f3b44,#2fc4b2)}
+.t5{background:linear-gradient(130deg,#5c1330,#ff5c8a)}.t6{background:linear-gradient(130deg,#20232c,#6f7a92)}
+.card .b{padding:18px 20px 20px}
+.card h3{font-size:20px;font-weight:700}
+.card p{margin:6px 0 10px;color:var(--muted);font-size:15px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{border:1px solid var(--line);background:none;color:var(--muted);padding:8px 18px;border-radius:99px;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--grad);color:#140a05;border-color:transparent;font-weight:700}
+
+/* services */
+.svc{padding:28px;background:var(--panel);border:1px solid var(--line);border-radius:16px;min-width:0}
+.svc .ic{width:44px;height:44px;border-radius:12px;background:var(--grad);display:grid;place-items:center;color:#140a05;font-family:var(--mono);font-weight:500;margin-bottom:18px}
+.svc h3{font-size:21px;margin-bottom:8px}.svc p{margin:0 0 14px;color:var(--muted);font-size:15px}
+.svc ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14.5px}
+.svc li::before{content:"→ ";color:var(--orange)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.steps li{padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--panel);min-width:0}
+.steps b{display:block;font-family:var(--display);margin:6px 0 4px}.steps p{margin:0;color:var(--muted);font-size:14px}
+
+/* about / resume / awards */
+.two{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr;gap:32px}}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.tools span{font-family:var(--mono);font-size:13px;border:1px solid var(--line);padding:7px 14px;border-radius:8px;background:var(--panel)}
+.bars{display:grid;gap:16px;margin-top:20px}
+.bar b{display:flex;justify-content:space-between;font-size:15px;margin-bottom:6px}
+.bar i{display:block;height:6px;border-radius:9px;background:var(--line);overflow:hidden}
+.bar i::after{content:"";display:block;height:100%;width:var(--w);background:var(--grad);border-radius:9px}
+.tl{border-left:1px solid var(--line);margin:0;padding:0 0 0 28px;list-style:none;display:grid;gap:28px}
+.tl li{position:relative;min-width:0}
+.tl li::before{content:"";position:absolute;left:-34px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--orange)}
+.tl h3{font-size:19px;margin:4px 0}.tl p{margin:0;color:var(--muted);font-size:15px}
+.quote{padding:26px;background:var(--panel);border:1px solid var(--line);border-radius:16px;min-width:0}
+.quote p{margin:0 0 16px;font-size:16.5px}
+.quote .mono{color:var(--blue)}
+.sheet{aspect-ratio:210/297;max-width:100%;width:100%;border:1.5px dashed var(--line);border-radius:12px;background:var(--panel);display:grid;place-items:center;text-align:center;padding:24px;color:var(--muted);font-size:15px}
+.sheet b{display:block;color:var(--fg);font-family:var(--display);font-size:20px;margin-bottom:8px}
+.res-actions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 0}
+.note{margin-top:14px}
+
+/* contact */
+.cbox{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.cbox code{font-family:var(--mono);font-size:15px;overflow-wrap:anywhere}
+.cbox + .cbox{margin-top:12px}
+form{display:grid;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+label{display:grid;gap:6px;font-size:14px;font-weight:700}
+input,select,textarea{font:inherit;font-weight:400;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--orange);outline:none}
+textarea{min-height:120px;resize:vertical}
+.err{color:#ff8a6a;font-size:13px;min-height:1em;font-weight:400}
+#brief-out{white-space:pre-wrap}
+footer{border-top:1px solid var(--line);padding-block:26px 40px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* modal */
+#modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.8);display:grid;place-items:center;padding:20px}
+#modal[hidden]{display:none}
+.mbox{width:min(860px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;position:relative}
+.mvid{aspect-ratio:16/9;border-radius:10px;display:grid;place-items:center;text-align:center;padding:20px;color:#fff}
+.mbox h3{margin:16px 4px 4px}.mbox p{margin:0 4px 4px;color:var(--muted)}
+#mclose{position:absolute;top:-14px;right:-6px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;font-size:18px}
+@media (prefers-reduced-motion:reduce){.view.on{animation:none}.frame .rec::before{animation:none}html{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <a class="brand" href="#home">RAJA REHAN AFZAL<i>.</i></a>
+  <nav class="links" id="links" aria-label="Main">
+    <a href="#home" data-v="home">Home</a><a href="#portfolio" data-v="portfolio">Portfolio</a><a href="#services" data-v="services">Services</a><a href="#about" data-v="about">About</a><a href="#awards" data-v="awards">Awards</a><a href="#resume" data-v="resume">Resume</a><a href="#contact" data-v="contact">Contact</a>
+  </nav>
+  <div class="hdr-r"><a class="pill talk" href="#contact">Let's Talk</a><button class="pill" id="menu" type="button" aria-expanded="false" aria-controls="links">Menu</button></div>
+</header>
+
+<!-- HOME -->
+<main>
+<section class="view" id="v-home">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Video Editor &amp; Content Creator</div>
+      <h1>Raja Rehan Afzal <span class="g">edits stories</span> that hook.</h1>
+      <div class="yrs">3+ Years of Craft Behind Every Cut</div>
+      <p class="lead">Turning raw footage into stories that hold attention. YouTube, ads, reels and films, cut, graded and delivered ready to publish.</p>
+      <div class="cta"><a class="pill fill" href="#portfolio">View My Work ↗</a><a class="link2" href="#contact">Start a project →</a></div>
+    </div>
+    <div class="frame"><div><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="rec mono">REC</span><p>Your photo or showreel goes here.<br><span class="mono">Tell me which and I'll place it.</span></p></div></div>
+  </div>
+  <div class="stats">
+    <div><b class="g">3+</b><span>Years editing</span></div><div><b>50+</b><span>Videos delivered</span></div><div><b>20+</b><span>Happy clients</span></div><div><b>48h</b><span>Fastest turnaround</span></div>
+  </div>
+  <p class="mono note">Only the 3+ years is yours so far. The other numbers are sample values to replace.</p>
+  <div class="row-h"><h2>Featured work</h2><a class="link2" href="#portfolio">See all projects →</a></div>
+  <div class="grid" id="featured"></div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="view" id="v-portfolio">
+  <div class="sec-top"><div class="eyebrow">Portfolio</div><h2>Work that <span class="g">moves people.</span></h2><p class="lead">Tap a project to open it. These are sample slots until you add your own videos.</p></div>
+  <div class="filters" role="group" aria-label="Filter projects" id="filters">
+    <button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="YouTube" aria-pressed="false">YouTube</button><button type="button" data-f="Ads" aria-pressed="false">Ads</button><button type="button" data-f="Short-form" aria-pressed="false">Short-form</button><button type="button" data-f="Film" aria-pressed="false">Film</button>
+  </div>
+  <div class="grid" id="all"></div>
+</section>
+
+<!-- SERVICES -->
+<section class="view" id="v-services">
+  <div class="sec-top"><div class="eyebrow">Services</div><h2>Everything after <span class="g">"record".</span></h2><p class="lead">One editor from rough cut to final export.</p></div>
+  <div class="grid">
+    <div class="svc"><div class="ic">01</div><h3>Long-form editing</h3><p>YouTube videos, podcasts, interviews and documentaries.</p><ul><li>Story-first pacing</li><li>Multi-cam sync</li><li>Chapters and highlights</li></ul></div>
+    <div class="svc"><div class="ic">02</div><h3>Short-form</h3><p>Reels, Shorts and TikToks built to stop the scroll.</p><ul><li>Strong hooks</li><li>Animated captions</li><li>Beat-matched cuts</li></ul></div>
+    <div class="svc"><div class="ic">03</div><h3>Colour grading</h3><p>Matched shots and a look that fits your brand.</p><ul><li>Shot matching</li><li>Skin-tone care</li><li>Custom looks</li></ul></div>
+    <div class="svc"><div class="ic">04</div><h3>Sound design</h3><p>Clean dialogue, balanced mix and the right music.</p><ul><li>Noise removal</li><li>Mixing and effects</li><li>Music selection</li></ul></div>
+    <div class="svc"><div class="ic">05</div><h3>Motion graphics</h3><p>Titles, lower thirds and simple explainer animation.</p><ul><li>Intro and outro</li><li>Lower thirds</li><li>Logo reveals</li></ul></div>
+    <div class="svc"><div class="ic">06</div><h3>Ad editing</h3><p>Social and product ads in every aspect ratio.</p><ul><li>16:9, 9:16 and 1:1</li><li>A/B versions</li><li>Subtitles on request</li></ul></div>
+  </div>
+  <div class="row-h"><h2>How a project runs</h2><span class="mono">2 ROUNDS OF REVISIONS INCLUDED</span></div>
+  <ol class="steps">
+    <li><span class="mono">STAGE 1</span><b>Brief</b><p>You share footage and goals.</p></li><li><span class="mono">STAGE 2</span><b>Assembly</b><p>Rough cut sets the story.</p></li><li><span class="mono">STAGE 3</span><b>Fine cut</b><p>Pacing, graphics, your notes.</p></li><li><span class="mono">STAGE 4</span><b>Grade and sound</b><p>Colour, mix and polish.</p></li><li><span class="mono">STAGE 5</span><b>Delivery</b><p>Final files in every format.</p></li>
+  </ol>
+</section>
+
+<!-- ABOUT -->
+<section class="view" id="v-about">
+  <div class="sec-top"><div class="eyebrow">About</div><h2>Hi, I'm Raja Rehan Afzal.</h2></div>
+  <div class="two">
+    <div class="frame" style="margin:0"><div><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span><p>Your portrait goes here.</p></div></div>
+    <div>
+      <p class="lead" style="font-size:19px;color:var(--fg)">I'm a video editor with 3+ years of experience turning raw footage into clear, engaging stories.</p>
+      <p class="lead">I work with creators, brands and agencies who want videos that hold attention from the first second to the last. I care about pacing, sound and the small details viewers feel but never notice.</p>
+      <p class="mono note">Short sample bio. Send me a few lines about yourself and I'll rewrite this in your voice.</p>
+      <h3 style="margin-top:32px;font-size:22px">Tools I use</h3>
+      <div class="tools"><span>Premiere Pro</span><span>DaVinci Resolve</span><span>After Effects</span><span>Final Cut Pro</span><span>CapCut</span><span>Audition</span></div>
+      <h3 style="margin-top:32px;font-size:22px">Skills</h3>
+      <div class="bars">
+        <div class="bar"><b><span>Video editing</span><span class="mono">95%</span></b><i style="--w:95%"></i></div>
+        <div class="bar"><b><span>Colour grading</span><span class="mono">80%</span></b><i style="--w:80%"></i></div>
+        <div class="bar"><b><span>Sound design</span><span class="mono">75%</span></b><i style="--w:75%"></i></div>
+        <div class="bar"><b><span>Motion graphics</span><span class="mono">70%</span></b><i style="--w:70%"></i></div>
+      </div>
+      <div class="res-actions"><a class="pill fill" href="#resume">View my resume →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="view" id="v-awards">
+  <div class="sec-top"><div class="eyebrow">Awards &amp; Achievements</div><h2>Milestones <span class="g">so far.</span></h2><p class="lead">Sample entries. Replace them with your real awards, milestones and client feedback.</p></div>
+  <div class="two">
+    <ol class="tl">
+      <li><span class="mono">2026</span><h3>Your latest milestone</h3><p>For example: a video that passed 100K views, or a new long-term client.</p></li>
+      <li><span class="mono">2025</span><h3>Award or recognition</h3><p>Competition, certificate or a feature on a channel.</p></li>
+      <li><span class="mono">2024</span><h3>First big client project</h3><p>The project that moved your work to the next level.</p></li>
+      <li><span class="mono">2023</span><h3>Started professional editing</h3><p>Where your 3+ years of experience begin.</p></li>
+    </ol>
+    <div style="display:grid;gap:18px">
+      <div class="quote"><p>“Sample testimonial. A client sentence about how easy you were to work with and how fast you delivered.”</p><span class="mono">CLIENT NAME · CHANNEL OR BRAND</span></div>
+      <div class="quote"><p>“Another sample testimonial about the quality of the edit and the result it got.”</p><span class="mono">CLIENT NAME · CHANNEL OR BRAND</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section class="view" id="v-resume">
+  <div class="sec-top"><div class="eyebrow">Resume</div><h2>Experience, <span class="g">on paper.</span></h2><p class="lead">A summary of my work, plus space for the full resume.</p></div>
+  <div class="two">
+    <div>
+      <div class="sheet" role="img" aria-label="Space reserved for resume"><div><b>Resume space</b>Your resume (PDF or image) will be placed here.<br><span class="mono">A4 size, ready for your file</span></div></div>
+      <div class="res-actions"><a class="pill fill" href="#contact">Request my resume</a></div>
+      <p class="mono note">Send me your resume file and I'll embed it here with a download link.</p>
+    </div>
+    <div>
+      <h3 style="font-size:24px;margin-bottom:6px">Raja Rehan Afzal</h3>
+      <p class="lead" style="margin:0 0 28px">Video Editor · 3+ years experience</p>
+      <ol class="tl">
+        <li><span class="mono">YEAR – PRESENT</span><h3>Video Editor · Freelance</h3><p>Editing YouTube, ads and short-form content for creators and brands. Add your real roles here.</p></li>
+        <li><span class="mono">YEAR – YEAR</span><h3>Previous role or company</h3><p>What you edited and what you delivered.</p></li>
+        <li><span class="mono">YEAR</span><h3>Education or course</h3><p>School, institute or certification.</p></li>
+      </ol>
+      <h3 style="margin:32px 0 0;font-size:20px">Software</h3>
+      <div class="tools"><span>Premiere Pro</span><span>DaVinci Resolve</span><span>After Effects</span><span>CapCut</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="view" id="v-contact">
+  <div class="sec-top"><div class="eyebrow">Contact</div><h2>Let's make something <span class="g">worth watching.</span></h2></div>
+  <div class="two" style="grid-template-columns:1fr 1fr">
+    <div>
+      <div class="cbox"><div><span class="mono">EMAIL</span><br><code id="c-mail">your@email.com</code></div><button class="pill" type="button" data-copy="c-mail">Copy</button></div>
+      <div class="cbox"><div><span class="mono">WHATSAPP</span><br><code id="c-wa">+92 000 0000000</code></div><button class="pill" type="button" data-copy="c-wa">Copy</button></div>
+      <p class="mono note">These are placeholders. Send me your real email, WhatsApp and social links.</p>
+      <p class="lead" style="margin-top:24px">Replies within 24 hours. Based in Pakistan (PKT, UTC+5), working with clients worldwide.</p>
+    </div>
+    <form id="brief" novalidate>
+      <label for="f-name">Your name<input id="f-name" autocomplete="name"><span class="err" id="e-name"></span></label>
+      <label for="f-type">Project type<select id="f-type"><option>YouTube video</option><option>Ad or promo</option><option>Short-form / Reels</option><option>Film or documentary</option><option>Other</option></select></label>
+      <label for="f-msg">Tell me about it<textarea id="f-msg" placeholder="Length, deadline, style references..."></textarea><span class="err" id="e-msg"></span></label>
+      <button class="pill fill" type="submit" style="justify-content:center;padding:14px">Write my brief</button>
+      <div id="brief-out" class="mono" hidden></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><span class="mono">© 2026 RAJA REHAN AFZAL</span><span class="mono">VIDEO EDITOR · 3+ YEARS</span></footer>
+</div>
+
+<div id="modal" hidden role="dialog" aria-modal="true" aria-label="Project preview">
+  <div class="mbox"><button id="mclose" type="button" aria-label="Close">✕</button>
+    <div class="mvid" id="mvid"><div><b style="font-family:var(--display);font-size:22px">Video plays here</b><br><span class="mono" style="color:#fff">Add your YouTube or Drive link for this project.</span></div></div>
+    <h3 id="mt"></h3><p id="mp"></p></div>
+</div>
+
+<script src="site-data.js"></script>
+<script>
+(function(){
+  var P=[
+    {t:"Travel vlog series",c:"YouTube",d:"12:40",g:"t1",p:"Fast pacing, story-first cuts and sound design for a weekly channel.",tool:"Premiere Pro"},
+    {t:"Product launch spot",c:"Ads",d:"00:30",g:"t2",p:"A 30-second ad with motion graphics and a full colour grade.",tool:"After Effects"},
+    {t:"Reels and Shorts pack",c:"Short-form",d:"00:45",g:"t3",p:"Vertical edits with captions, hooks and beat-matched cuts.",tool:"CapCut"},
+    {t:"Documentary short",c:"Film",d:"08:15",g:"t4",p:"Interview edit, archive footage and a natural, filmic grade.",tool:"DaVinci Resolve"},
+    {t:"Podcast to video",c:"YouTube",d:"18:05",g:"t5",p:"Multi-camera cut with clean audio and chapter-ready highlights.",tool:"Premiere Pro"},
+    {t:"Social ad set",c:"Ads",d:"00:15",g:"t6",p:"One master cut delivered in 16:9, 9:16 and 1:1.",tool:"After Effects"}];
+  var PH=document.getElementById('mvid').innerHTML,S=window.SITE;
+  try{S=JSON.parse(localStorage.getItem('raja_site'))||S}catch(e){}
+  if(S){var $=function(i){return document.getElementById(i)};
+    if(S.projects&&S.projects.length)P=S.projects.map(function(x,i){x.g='t'+(i%6+1);return x});
+    if(S.mail)$('c-mail').textContent=S.mail;if(S.wa)$('c-wa').textContent=S.wa;
+    (S.stats||[]).forEach(function(v,i){var b=document.querySelectorAll('.stats b')[i];if(b)b.textContent=v});
+    var T=S.theme;if(T){var r=document.documentElement.style,h=function(x,a){return 'rgba('+parseInt(x.slice(1,3),16)+','+parseInt(x.slice(3,5),16)+','+parseInt(x.slice(5,7),16)+','+a+')'};
+      r.setProperty('--orange',T.o);r.setProperty('--blue',T.b);r.setProperty('--bg',T.bg);r.setProperty('--grad','linear-gradient(90deg,'+T.o+','+T.b+')');
+      document.body.style.backgroundImage='radial-gradient(900px 600px at 5% 0%,'+h(T.o,.22)+',transparent 60%),radial-gradient(900px 700px at 100% 100%,'+h(T.b,.18)+',transparent 60%)'}
+    if(S.photo)document.querySelectorAll('.frame>div').forEach(function(d){d.querySelectorAll('p,.rec').forEach(function(n){n.hidden=true});var i=document.createElement('img');i.src=S.photo;i.alt='Raja Rehan Afzal';i.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover';d.appendChild(i)})}
+  function card(x,i){var b=document.createElement('button');b.type='button';b.className='card';b.dataset.c=x.c;b.dataset.i=i;
+    b.innerHTML='<div class="thumb '+x.g+'"><div class="pl"></div><span>SAMPLE</span><span>'+x.d+'</span></div><div class="b"><h3>'+x.t+'</h3><p>'+x.p+'</p><span class="mono">'+x.c.toUpperCase()+' · '+x.tool.toUpperCase()+'</span></div>';
+    b.addEventListener('click',function(){openM(x)});return b}
+  var all=document.getElementById('all'),feat=document.getElementById('featured');
+  P.forEach(function(x,i){all.appendChild(card(x,i)); if(i<3)feat.appendChild(card(x,i))});
+  var fb=document.querySelectorAll('#filters button');
+  fb.forEach(function(b){b.addEventListener('click',function(){
+    fb.forEach(function(o){o.setAttribute('aria-pressed',o===b)});
+    all.querySelectorAll('.card').forEach(function(c){c.hidden=!(b.dataset.f==='all'||c.dataset.c===b.dataset.f)});
+  })});
+  var m=document.getElementById('modal');
+  function openM(x){document.getElementById('mt').textContent=x.t;document.getElementById('mp').textContent=x.c+' · '+x.d+' · '+x.p;
+    document.getElementById('mvid').className='mvid '+x.g;var mv=document.getElementById('mvid');mv.innerHTML=PH;
+    if(x.v){var a=document.createElement('a');a.className='pill fill';a.href=x.v;a.target='_blank';a.rel='noopener';a.textContent='Watch video ↗';mv.innerHTML='';mv.appendChild(a)}m.hidden=false;document.getElementById('mclose').focus()}
+  function closeM(){m.hidden=true}
+  document.getElementById('mclose').addEventListener('click',closeM);
+  m.addEventListener('click',function(e){if(e.target===m)closeM()});
+  addEventListener('keydown',function(e){if(e.key==='Escape')closeM()});
+
+  var names=['home','portfolio','services','about','awards','resume','contact'];
+  function route(){
+    var h=(location.hash||'#home').slice(1); if(names.indexOf(h)<0)h='home';
+    names.forEach(function(n){document.getElementById('v-'+n).classList.toggle('on',n===h)});
+    document.querySelectorAll('#links a').forEach(function(a){a.classList.toggle('on',a.dataset.v===h)});
+    document.getElementById('links').classList.remove('open');document.getElementById('menu').setAttribute('aria-expanded','false');
+    scrollTo(0,0);
+  }
+  addEventListener('hashchange',route);route();
+  var mb=document.getElementById('menu');
+  mb.addEventListener('click',function(){var o=document.getElementById('links').classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    var el=document.getElementById(b.dataset.copy);
+    function sel(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'}
+    function ok(){b.textContent='Copied'}
+    try{navigator.clipboard.writeText(el.textContent).then(ok,sel)}catch(e){sel()}
+    setTimeout(function(){b.textContent='Copy'},1600)})});
+
+  document.getElementById('brief').addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('f-name').value.trim(),g=document.getElementById('f-msg').value.trim(),t=document.getElementById('f-type').value;
+    document.getElementById('e-name').textContent=n?'':'Please enter your name.';
+    document.getElementById('e-msg').textContent=g?'':'Please add a few details about the project.';
+    if(!n||!g)return;
+    var o=document.getElementById('brief-out');
+    o.textContent='Hi Raja, I\'m '+n+'. Project: '+t+'.\n'+g+'\n\nCopy this message and send it by email or WhatsApp using the details on the left.';
+    o.hidden=false;
+  });
+})();
+</script>
+
+</body></html>

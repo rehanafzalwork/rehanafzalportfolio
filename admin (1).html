@@ -1,0 +1,67 @@
+<!doctype html><html lang=en><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>Admin · Raja Rehan Afzal</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;background:#0a0a0c;color:#f2f2f5;font:15px/1.5 system-ui,sans-serif;padding:16px}
+.w{max-width:860px;margin:auto}h1{font-size:22px}h2{font-size:16px;color:#ff6a2b;margin:28px 0 10px}
+.c{background:#131318;border:1px solid #26262f;border-radius:12px;padding:12px;margin-bottom:10px;display:grid;gap:8px;grid-template-columns:1fr 1fr}
+.c .f{grid-column:1/-1}
+input,select,textarea{width:100%;background:#0a0a0c;color:inherit;border:1px solid #26262f;border-radius:8px;padding:9px;font:inherit}
+button{background:#18181f;color:inherit;border:1px solid #26262f;border-radius:99px;padding:9px 18px;cursor:pointer;font:inherit;font-weight:700}
+button.p{background:linear-gradient(90deg,#ff6a2b,#4d8dff);color:#140a05;border:0}
+.bar{position:sticky;bottom:0;background:#0a0a0cee;padding:12px 0;display:flex;gap:8px;flex-wrap:wrap}
+.s{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:600px){.c{grid-template-columns:1fr}.s{grid-template-columns:1fr 1fr}}
+#t{color:#6fdc8c}
+</style></head><body><div class=w>
+<h1>Admin panel</h1>
+<h2>Projects</h2><div id=P></div><button id=add>+ Add project</button>
+<h2>Contact</h2><div class=c><input data-k=mail placeholder=Email><input data-k=wa placeholder=WhatsApp></div>
+<h2>Profile photo</h2><div class=c><input type=file id=ph accept="image/*"><button id=phx>Remove photo</button><img id=pv alt="" style="max-width:120px;border-radius:10px" hidden></div>
+<h2>Theme</h2><div class=c><label>Accent 1<input type=color data-th=o></label><label>Accent 2<input type=color data-th=b></label><label>Background<input type=color data-th=bg></label><div class=f id=pre style="display:flex;gap:8px;flex-wrap:wrap"></div></div>
+<h2>Home stats (4 numbers)</h2><div class=s id=S></div>
+<div class=bar><button class=p id=save>Save</button><button id=dl>Download site-data.js</button><button id=rs>Reset</button><span id=t></span></div>
+</div>
+<script>
+var PW='admin123',K='raja_site'; /* change PW above */
+if(sessionStorage.ok!=='1'){if(prompt('Password')!==PW){document.body.innerHTML='Access denied';throw 0}sessionStorage.ok='1'}
+var D;try{D=JSON.parse(localStorage.getItem(K))}catch(e){}
+D=D||{projects:[
+{t:"Travel vlog series",c:"YouTube",d:"12:40",p:"Fast pacing, story-first cuts and sound design for a weekly channel.",tool:"Premiere Pro",v:""},
+{t:"Product launch spot",c:"Ads",d:"00:30",p:"A 30-second ad with motion graphics and a full colour grade.",tool:"After Effects",v:""},
+{t:"Reels and Shorts pack",c:"Short-form",d:"00:45",p:"Vertical edits with captions, hooks and beat-matched cuts.",tool:"CapCut",v:""},
+{t:"Documentary short",c:"Film",d:"08:15",p:"Interview edit, archive footage and a natural, filmic grade.",tool:"DaVinci Resolve",v:""},
+{t:"Podcast to video",c:"YouTube",d:"18:05",p:"Multi-camera cut with clean audio and chapter-ready highlights.",tool:"Premiere Pro",v:""},
+{t:"Social ad set",c:"Ads",d:"00:15",p:"One master cut delivered in 16:9, 9:16 and 1:1.",tool:"After Effects",v:""}],
+mail:"your@email.com",wa:"+92 000 0000000",stats:["3+","50+","20+","48h"]};
+D.theme=D.theme||{o:'#ff6a2b',b:'#4d8dff',bg:'#0a0a0c'};
+var PRE=[['Sunset','#ff6a2b','#4d8dff','#0a0a0c'],['Emerald','#22c55e','#06b6d4','#08100c'],['Purple','#a855f7','#ec4899','#0d0a12'],['Gold','#f5b301','#ef4444','#0c0a08']];
+var $=function(i){return document.getElementById(i)},e=function(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')};
+function R(){
+ $('P').innerHTML=D.projects.map(function(x,i){
+  var o=['YouTube','Ads','Short-form','Film'].map(function(c){return '<option'+(c===x.c?' selected':'')+'>'+c+'</option>'}).join('');
+  return '<div class=c><input data-i='+i+' data-k=t value="'+e(x.t)+'" placeholder=Title><select data-i='+i+' data-k=c>'+o+'</select>'
+  +'<input data-i='+i+' data-k=d value="'+e(x.d)+'" placeholder="Duration 00:30"><input data-i='+i+' data-k=tool value="'+e(x.tool)+'" placeholder=Tool>'
+  +'<input class=f data-i='+i+' data-k=v value="'+e(x.v)+'" placeholder="Video link (YouTube / Drive)">'
+  +'<textarea class=f rows=2 data-i='+i+' data-k=p placeholder=Description>'+e(x.p)+'</textarea>'
+  +'<button class=f data-del='+i+'>Delete</button></div>'}).join('');
+ $('S').innerHTML=D.stats.map(function(v,i){return '<input data-s='+i+' value="'+e(v)+'">'}).join('');
+ $('pv').hidden=!D.photo;if(D.photo)$('pv').src=D.photo;
+ document.querySelectorAll('[data-th]').forEach(function(n){n.value=D.theme[n.dataset.th]});
+ document.querySelectorAll('[data-k=mail],[data-k=wa]').forEach(function(n){n.value=D[n.dataset.k]||''});
+}
+document.addEventListener('input',function(ev){var n=ev.target,d=n.dataset;
+ if(d.i!=null)D.projects[d.i][d.k]=n.value;else if(d.s!=null)D.stats[d.s]=n.value;else if(d.th)D.theme[d.th]=n.value;else if(d.k)D[d.k]=n.value});
+document.addEventListener('click',function(ev){var d=ev.target.dataset;
+ if(d.del!=null&&confirm('Delete this project?')){D.projects.splice(d.del,1);R()}
+ if(d.p!=null){var p=PRE[d.p];D.theme={o:p[1],b:p[2],bg:p[3]};R()}});
+$('add').onclick=function(){D.projects.push({t:'New project',c:'YouTube',d:'00:00',p:'',tool:'Premiere Pro',v:''});R()};
+function msg(s){$('t').textContent=s;setTimeout(function(){$('t').textContent=''},2000)}
+$('save').onclick=function(){localStorage.setItem(K,JSON.stringify(D));msg('Saved ✓')};
+$('dl').onclick=function(){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['window.SITE='+JSON.stringify(D)+';'],{type:'text/javascript'}));a.download='site-data.js';a.click()};
+$('rs').onclick=function(){if(confirm('Reset everything?')){localStorage.removeItem(K);location.reload()}};
+
+$('pre').innerHTML=PRE.map(function(p,i){return '<button data-p='+i+'>'+p[0]+'</button>'}).join('');
+$('ph').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,800/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);D.photo=c.toDataURL('image/jpeg',.85);R()};im.src=r.result};r.readAsDataURL(f)};
+$('phx').onclick=function(){D.photo='';R()};
+R();
+</script></body></html>
